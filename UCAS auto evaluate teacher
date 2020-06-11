@@ -1,0 +1,52 @@
+// ==UserScript==
+// @name         UCAS auto evaluate teacher
+// @namespace    https://www.zhihu.com/people/pinelliaternata/activities
+// @version      2.0
+// @description  在中国科学院大学评教系统中自动选中“非常符合/非常满意”，并将文本框最小字数改为1个字。
+// @author       Sun Jiao
+// @match        http://jwxk.ucas.ac.cn/evaluate/*
+// @grant        none
+// @license     description: CC BY-SA 4.0; code: GPL.
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    //document.body.innerHTML = document.body.innerHTML.replace(/value=\"5\" aria-required=\"true\">/g, 'value=\"5\" aria-required=\"true\" checked=\"true\">');
+
+    document.getElementsByName("item_145")[0].value = "老师水平很高，讲解清楚。最喜欢老师的分析。";
+    document.getElementsByName("item_146")[0].value = "希望老师多布置作业，作业太少了。";
+    var single;
+    var i;
+    var item;
+
+    for (i = 133; i <= 159; i++) {
+        item = "item_" + i.toString();
+        single = document.getElementsByName(item);
+        if(single.length > 0){
+            single[0].checked = 1;
+        }
+    }
+    document.getElementsByName("radio_19")[1].checked = 1;
+
+    var multi = document.getElementsByName("item_25");
+    if(multi.length > 0){
+        for (i = 1; i <= 2; i++) {
+            multi[i].checked = 1;
+        }
+    }
+    //document.body.innerHTML = document.body.innerHTML.replace(/minlength=\"15\"/g, 'minlength=\"1\"');
+
+    var text;
+    for (i = 14; i <= 18; i++) {
+        item = "item_" + i.toString();
+        text = document.getElementsByName(item);
+        text[0].setAttribute("minlength","1");
+    }
+
+    for (i = 43; i <= 44; i++) {
+        item = "item_" + i.toString();
+        text = document.getElementsByName(item);
+        text[0].setAttribute("minlength","1");
+    }
+
+})();
